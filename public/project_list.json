@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Report generator",
+    "description": "Задача сайта - формирование приложений к закону о бюджете. В качестве источника данных используются загружаемые пользователем Excel-файлы определенной структуры.",
+    "technology": "Vue.js, Vuex, Vuetify",
+    "link_github": "https://github.com/Trotskyst/ReportGenerator",
+    "link": "https://reportgen.herokuapp.com",
+    "images": [
+      "reportgenerator/2.png",
+      "reportgenerator/3.png"
+    ]
+  },
+  {
+    "name": "Статистика турниров. Frontend-часть",
+    "description": "Задача сайта - сведение статистики турниров сайта www.pefl.ru",
+    "technology": "Vue.js, Vuetify",
+    "link_github": "https://github.com/Trotskyst/peflstatfront",
+    "link": "https://peflstat.herokuapp.com/",
+    "images": [
+      "peflstat_front/1.png",
+      "peflstat_front/2.png"
+    ]
+  },
+  {
+    "name": "Статистика турниров. Backend-часть",
+    "description": "Backend сайта статистики турниров сайта www.pefl.ru",
+    "technology": "Django, Python, Django REST Framework",
+    "link_github": "https://github.com/Trotskyst/peflstatback"
+  }
+]

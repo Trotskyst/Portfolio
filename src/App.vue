@@ -1,28 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+    <v-app>
+        <v-container grid-list-sm>
+            <v-layout wrap>
+                <v-flex xs12 sm4 v-for="(project, index) in project_list" :key="index">
+                    <ProjectCard :project="project"/>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+    import ProjectCard from '@/components/ProjectCard'
+    import axios from 'axios'
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
-  }
-}
+    export default {
+        components: {
+            ProjectCard,
+        },
+        data() {
+            return {
+                baseUrl: process.env.VUE_APP_BASE_URL,
+                project_list: null,
+            }
+        },
+        methods: {
+            async getProjectList() {
+                await axios.get(this.baseUrl + 'project_list.json').then(response => {
+                    this.project_list = response.data;
+                });
+            }
+        },
+        created() {
+            this.getProjectList();
+        }
+    }
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
