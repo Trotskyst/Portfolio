@@ -1,9 +1,5 @@
 <template>
-    <v-card
-            max-width="344"
-            class="mx-auto card-outter"
-            hover height="100%"
-    >
+    <div>
         <v-list-item>
             <v-list-item-content>
                 <v-alert type="success">
@@ -12,8 +8,8 @@
             </v-list-item-content>
         </v-list-item>
 
-        <v-carousel
-                height=200 class="bg-red">
+        <v-carousel v-if="images_list.length > 0"
+                    height=200 class="bg-red">
             <v-carousel-item
                     v-for="(image,i) in images_list"
                     :key="i"
@@ -23,7 +19,7 @@
             ></v-carousel-item>
         </v-carousel>
 
-        <v-card-text>
+        <v-card-text class="mb-5">
             <div class="text--primary text-justify font-weight-bold">
                 {{project.description}}
             </div>
@@ -37,47 +33,42 @@
         </v-card-text>
 
         <v-card-actions class="card-actions">
-            <v-btn
-                    text
-                    color="deep-purple accent-4"
-                    :href="project.link_github" target="_blank"
-            >
-                <v-icon left>mdi-github-circle</v-icon>
-                Github
-            </v-btn>
+            <ProjectCardBottomButton v-if="project.link_github" :link=project.link_github :icon="icon_Github"
+                                     :text="text_Github"/>
 
-            <v-spacer v-if="project.link"></v-spacer>
-
-            <v-btn
-                    v-if="project.link"
-                    text
-                    color="deep-purple accent-4"
-                    :href="project.link" target="_blank"
-            >
-                <v-icon left>mdi-share</v-icon>
-                Ссылка на результат
-            </v-btn>
+            <ProjectCardBottomButton v-if="project.link" :link=project.link :icon="icon_result" :text="text_result"/>
         </v-card-actions>
 
-    </v-card>
+    </div>
 </template>
 
 <script>
+    import ProjectCardBottomButton from "@/components/ProjectCardBottomButton";
+
     export default {
         props: {
             project: Object
+        },
+        components: {
+            ProjectCardBottomButton,
         },
         data() {
             return {
                 baseUrl: process.env.VUE_APP_BASE_URL,
                 images_list: [],
                 bottomNav: 'recent',
+                icon_Github: 'mdi-github-circle',
+                icon_result: 'mdi-share',
+                text_Github: 'Github',
+                text_result: 'Результат',
             }
         },
         mounted() {
             const images = this.project.images;
-            for (let i = 0; i < images.length; i++) {
-                this.images_list.push(this.baseUrl + 'project_images/' + images[i]);
+            if (images) {
+                for (let i = 0; i < images.length; i++) {
+                    this.images_list.push(this.baseUrl + 'project_images/' + images[i]);
+                }
             }
         },
     };
@@ -88,6 +79,7 @@
         position: relative;
         padding-bottom: 50px;
     }
+
     .card-actions {
         position: absolute;
         bottom: 0;

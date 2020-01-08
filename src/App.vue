@@ -1,12 +1,15 @@
 <template>
     <v-app>
-        <v-container grid-list-sm>
-            <v-layout wrap>
-                <v-flex xs12 sm4 v-for="(project, index) in project_list" :key="index">
-                    <ProjectCard :project="project"/>
-                </v-flex>
-            </v-layout>
-        </v-container>
+        <v-layout wrap class="d-flex cards">
+            <v-card
+                    width="344"
+                    hover
+                    class="pa-2 mx-2 card-outter"
+                    v-for="(project, index) in project_list" :key="index"
+            >
+                <ProjectCard :project="project"/>
+            </v-card>
+        </v-layout>
     </v-app>
 </template>
 
@@ -36,3 +39,9 @@
         }
     }
 </script>
+
+<style scoped>
+    .cards {
+        flex: 0 0 auto;
+    }
+</style>
